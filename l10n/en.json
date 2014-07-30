@@ -1,0 +1,13 @@
+{
+    "label.approved": "Approved",
+    "label.client": "Client",
+    "label.comment": "Comment",
+    "label.comments.anonymous": "Allow anonymous comments",
+    "label.comments.approval": "Comments need approval before being published",
+    "label.comments.finish.description": "Node to redirect to after a comment has been posted, leave empty to stay on the current page",
+    "label.locale": "Language",
+    "label.user": "User",
+    "success.comment.posted": "You have posted a comment on %entry%",
+    "success.comment.posted.approval": "Your comment on %entry% has been sent succesfully and awaits approval.",
+    "widget.orm.comments": "Comments"
+}

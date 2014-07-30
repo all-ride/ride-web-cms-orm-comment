@@ -1,0 +1,13 @@
+{
+    "label.approved": "Goedgekeurd",
+    "label.client": "Client",
+    "label.comment": "Commentaar",
+    "label.comments.anonymous": "Anonieme gebruikers toestaan",
+    "label.comments.approval": "Goedkeuring nodig alvorens commentaar te publiceren",
+    "label.comments.finish.description": "Node waarnaar doorverwezen wordt als een commentaar gepost wordt. Laat dit veld leeg om op de huidige pagina te blijven.",
+    "label.locale": "Taal",
+    "label.user": "Gebruiker",
+    "success.comment.posted": "Je commentaar werd gepost op %entry%",
+    "success.comment.posted.approval": "Je commentaar op %entry% werd verstuurd en wacht op goedkeuring",
+    "widget.orm.comments": "Commentaar"
+}
