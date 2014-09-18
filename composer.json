@@ -19,7 +19,7 @@
         "ride/lib-system": ">=0.1.0",
         "ride/lib-widget": ">=0.1.1",
         "ride/web-base": ">=0.4.0",
-        "ride/web-cms": ">=0.5.0",
+        "ride/web-cms": ">=0.13.0",
         "ride/web-orm": ">=0.4.0"
     },
     "autoload": {
