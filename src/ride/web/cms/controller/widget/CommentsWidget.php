@@ -24,11 +24,11 @@ class CommentsWidget extends AbstractWidget implements StyleWidget {
      */
     const ICON = 'img/cms/widget/comments.png';
 
-    /*
-     * Template resource for this form page
+    /**
+     * Namespace for the templates of this widget
      * @var string
      */
-    const TEMPLATE = 'cms/widget/orm/comments';
+    const TEMPLATE_NAMESPACE = 'cms/widget/orm-comments';
 
     /**
      * Action to handle the comment form and the comments itself
@@ -138,7 +138,7 @@ class CommentsWidget extends AbstractWidget implements StyleWidget {
         }
 
         // set everything to the template
-        $this->setTemplateView(self::TEMPLATE, $templateVariables);
+        $this->setTemplateView($this->getTemplate(static::TEMPLATE_NAMESPACE . '/index'), $templateVariables);
     }
 
     /**
@@ -175,6 +175,7 @@ class CommentsWidget extends AbstractWidget implements StyleWidget {
             'approval' => $this->properties->getWidgetProperty('approval'),
             'anonymous' => $this->properties->getWidgetProperty('anonymous'),
             'finish' => $this->properties->getWidgetProperty('finish'),
+            self::PROPERTY_TEMPLATE => $this->getTemplate(static::TEMPLATE_NAMESPACE . '/index'),
         );
 
         $form = $this->createFormBuilder($data);
@@ -194,6 +195,14 @@ class CommentsWidget extends AbstractWidget implements StyleWidget {
             'description' => $translator->translate('label.comments.finish.description'),
             'options' => $this->getNodeList($nodeModel),
         ));
+        $form->addRow(self::PROPERTY_TEMPLATE, 'select', array(
+            'label' => $translator->translate('label.template'),
+            'description' => $translator->translate('label.template.widget.description'),
+            'options' => $this->getAvailableTemplates(static::TEMPLATE_NAMESPACE),
+            'validators' => array(
+                'required' => array(),
+            ),
+        ));
         $form = $form->build();
 
         if($form->isSubmitted()) {
@@ -211,13 +220,15 @@ class CommentsWidget extends AbstractWidget implements StyleWidget {
                 $this->properties->setWidgetProperty('anonymous', $data['anonymous']);
                 $this->properties->setWidgetProperty('finish', $data['finish']);
 
+                $this->setTemplate($data[self::PROPERTY_TEMPLATE]);
+
                 return true;
             } catch (ValidationException $exception) {
                 $this->setValidationException($exception, $form);
             }
         }
 
-        $this->setTemplateView('cms/widget/orm/properties.comments', array(
+        $this->setTemplateView(static::TEMPLATE_NAMESPACE . '/properties', array(
             'form' => $form->getView(),
         ));
     }
