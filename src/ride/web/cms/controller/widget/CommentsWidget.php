@@ -138,7 +138,7 @@ class CommentsWidget extends AbstractWidget implements StyleWidget {
         }
 
         // set everything to the template
-        $this->setTemplateView($this->getTemplate(static::TEMPLATE_NAMESPACE . '/index'), $templateVariables);
+        $this->setTemplateView($this->getTemplate(static::TEMPLATE_NAMESPACE . '/default'), $templateVariables);
     }
 
     /**
@@ -175,7 +175,7 @@ class CommentsWidget extends AbstractWidget implements StyleWidget {
             'approval' => $this->properties->getWidgetProperty('approval'),
             'anonymous' => $this->properties->getWidgetProperty('anonymous'),
             'finish' => $this->properties->getWidgetProperty('finish'),
-            self::PROPERTY_TEMPLATE => $this->getTemplate(static::TEMPLATE_NAMESPACE . '/index'),
+            self::PROPERTY_TEMPLATE => $this->getTemplate(static::TEMPLATE_NAMESPACE . '/default'),
         );
 
         $form = $this->createFormBuilder($data);
