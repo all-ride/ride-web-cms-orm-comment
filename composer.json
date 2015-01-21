@@ -2,7 +2,7 @@
     "name": "ride/web-cms-orm-comment",
     "description": "ORM comments integration with the CMS application of the Ride framework",
     "license": "MIT",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "authors": [
         {
             "name": "Joris Vandeweerd",
@@ -12,14 +12,14 @@
     "require": {
         "ride/app-orm": ">=0.2.0",
         "ride/app-orm-comment": ">=0.1.0",
-        "ride/lib-cms": ">=0.10.1",
+        "ride/lib-cms": ">=0.15.0",
         "ride/lib-form": ">=0.5.5",
         "ride/lib-orm": ">=0.3.0",
         "ride/lib-validation": ">=0.1.0",
         "ride/lib-system": ">=0.1.0",
         "ride/lib-widget": ">=0.1.1",
         "ride/web-base": ">=0.4.0",
-        "ride/web-cms": ">=0.13.0",
+        "ride/web-cms": ">=0.16.0",
         "ride/web-orm": ">=0.4.0"
     },
     "autoload": {
