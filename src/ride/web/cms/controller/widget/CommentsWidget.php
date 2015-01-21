@@ -2,6 +2,7 @@
 
 namespace ride\web\cms\controller\widget;
 
+use ride\library\cms\content\Content;
 use ride\library\cms\node\NodeModel;
 use ride\library\orm\OrmManager;
 use ride\library\validation\exception\ValidationException;
@@ -57,7 +58,7 @@ class CommentsWidget extends AbstractWidget implements StyleWidget {
         // set the context of the comment
         $content = $this->getContext('content');
         if ($content && $content instanceof Content) {
-            $comment->type = $content->getType();
+            $comment->type = $content->type;
             $comment->entry = $content->data->getId();
 
             $entry = $content->title;
