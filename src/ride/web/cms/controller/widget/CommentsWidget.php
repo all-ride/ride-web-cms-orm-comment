@@ -7,6 +7,8 @@ use ride\library\cms\node\NodeModel;
 use ride\library\orm\OrmManager;
 use ride\library\validation\exception\ValidationException;
 use ride\library\system\System;
+use ride\web\form\component\HoneyPotComponent;
+use ride\web\form\exception\HoneyPotException;
 
 /*
  * Widget to handle comments on a page
@@ -31,13 +33,15 @@ class CommentsWidget extends AbstractWidget implements StyleWidget {
      */
     const TEMPLATE_NAMESPACE = 'cms/widget/orm-comments';
 
+    protected $form;
+
     /**
      * Action to handle the comment form and the comments itself
      * @param \ride\library\orm\OrmManager $orm
      * @param \ride\library\system\System $system
      * @return null
      */
-    public function indexAction(OrmManager $orm, System $system) {
+    public function indexAction(OrmManager $orm, System $system, HoneyPotComponent $honeyPotComponent) {
         $user = $this->getUser();
 
         $allowComment = $this->properties->getWidgetProperty('anonymous') || $user;
@@ -95,11 +99,16 @@ class CommentsWidget extends AbstractWidget implements StyleWidget {
                     'required' => array(),
                 ),
             ));
+            $form->addRow('phone', 'component', array(
+                'component' => $honeyPotComponent,
+                'embed' => true
+            ));
             $form = $form->build();
 
             // handle the comment form
             if ($form->isSubmitted()) {
                 try {
+
                     $form->validate();
 
                     $comment = $form->getData();
@@ -127,9 +136,12 @@ class CommentsWidget extends AbstractWidget implements StyleWidget {
                     return;
                 } catch (ValidationException $exception) {
                     $this->setValidationException($exception, $form);
+                } catch (HoneyPotException $exception) {
+                    $this->addError('error.honeypot');
                 }
             }
 
+            $this->form = $form;
             $templateVariables['form'] = $form->getView();
         }
 
@@ -139,7 +151,10 @@ class CommentsWidget extends AbstractWidget implements StyleWidget {
         }
 
         // set everything to the template
-        $this->setTemplateView($this->getTemplate(static::TEMPLATE_NAMESPACE . '/default'), $templateVariables);
+        $view = $this->setTemplateView($this->getTemplate(static::TEMPLATE_NAMESPACE . '/default'), $templateVariables);
+        if($this->form) {
+            $this->form->processView($view);
+        }
     }
 
     /**
